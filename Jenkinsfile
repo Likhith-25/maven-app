@@ -1,19 +1,23 @@
-pipeline{
+pipeline {
     agent any
-    stages{
-       stage('build'){
-            steps{
-                sh ' mvn clean package'
+
+    stages {
+
+        stage('Build Maven') {
+            steps {
+                sh 'mvn clean package'
             }
         }
-        stage('docker'){
-            steps{
-                sh 'docker build -t maven-external .'
+
+        stage('Build Docker Image') {
+            steps {
+                sh 'docker build -t hello-world .'
             }
         }
-        stage('run'){
-            steps{
-                sh 'docker run maven-external'
+
+        stage('Run Docker Container') {
+            steps {
+                sh 'docker run --rm hello-world'
             }
         }
     }
